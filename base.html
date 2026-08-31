@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>{% block title %}Online Job Portal{% endblock %}</title>
+<style>
+*{
+    box-sizing:border-box;
+}
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f6f8fc;
+    color:#172033;
+}
+nav{
+    height:74px;
+    background:#fff;
+    border-bottom:1px solid #e8ebf2;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 6%;
+    position:sticky;
+    top:0;
+    z-index:20;
+}
+.brand{
+    font-size:23px;
+    font-weight:900;
+    text-decoration:none;
+    color:#2448d8;
+}
+.brand span{
+    color:#ff6b35;
+}
+.links{
+    display:flex;
+    align-items:center;
+    gap:17px;
+}
+.links a{
+    text-decoration:none;
+    color:#465268;
+    font-weight:700;
+}
+.primary,.btn{
+    background:#2448d8!important;
+    color:#fff!important;
+    padding:11px 17px;border:0;
+    border-radius:9px;
+    text-decoration:none;
+    font-weight:800;cursor:pointer;
+}
+.container{
+    width:88%;
+    max-width:1180px;
+    margin:35px auto;
+}
+.card{
+    background:#fff;
+    border:1px solid #e6eaf1;
+    border-radius:17px;
+    padding:23px;
+}
+.muted{
+    color:#687387;
+}
+.alert{
+    width:88%;
+    max-width:1180px;
+    margin:12px auto;
+    padding:12px;
+    border-radius:9px;
+    background:#eaf8ef;
+    color:#176b39;
+}
+@media(max-width:760px)
+{
+    nav{
+        padding:0 4%;
+    }
+.links{
+    gap:7px;
+    font-size:11px;
+    }
+.container{
+    width:92%
+    }
+}
+</style>
+</head>
+<body>
+    <nav>
+        <a class="brand" href="/">Online <span>Job Portal</span></a>
+        <div class="links"><a href="{% if user.is_authenticated %}/jobs/{% else %}/login/{% endif %}">Find Jobs</a>
+            {% if user.is_authenticated %}
+            <a href="/saved/">Saved</a>
+            <a href="/applications/">Applications</a>
+            <a href="/post-job/" class="primary">Post a Job</a>
+            <a href="/logout/">Logout</a>
+            {% else %}
+            <a href="/login/">Login</a>
+            <a href="/register/" class="primary">Register</a>
+            {% endif %}
+        </div>
+    </nav>
+    {% if messages %}
+    {% for m in messages %}
+    <div class="alert">{{m}}</div>
+    {% endfor %}{% endif %}
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
+

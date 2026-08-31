@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}My Applications | Online Job Portal{% endblock %}
+{% block content %}
+<main class="container">
+    <h1>My Applications</h1>
+    <p class="muted">Track every job application in one place.</p><br>
+    {% for a in applications %}
+    <div class="card" style="margin-bottom:15px">
+        <h3>{{a.job.title}}</h3><b>{{a.job.company}}</b>
+        <p class="muted">📍 {{a.job.location}}, {{a.job.state}} · Applied {{a.applied_at|date:"d M Y"}}</p>
+        <strong>Status: {{a.status}}</strong>
+    </div>{% empty %}
+    <div class="card">
+        <h3>No applications yet</h3>
+    </div>{% endfor %}
+</main>{% endblock %}
